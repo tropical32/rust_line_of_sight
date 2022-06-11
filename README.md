@@ -33,8 +33,8 @@ A crate for finding the line of sight on a 2D grid.
     // set the center to be (4, 5)
     let center = (4.0, 5.0);
     
-    // fully scan the map (in 4 directions. Use `scan_arc` to only scan in 1 direction)
-    map.full_scan(center);
+    // fully scan the map in the 20 unit radius (in 4 directions. Use `scan_arc` to only scan in 1 direction)
+    map.full_scan(center, 20.0);
 
     // set (4, 5) to be the "player cell" for visual purposes
     map.set(4, 5, PLAYER);

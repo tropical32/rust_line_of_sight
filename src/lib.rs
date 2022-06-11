@@ -1,4 +1,3 @@
-pub const SIGHT_RADIUS: f32 = 20.0;
 pub const EMPTY: u8 = 0;
 pub const BLOCK: u8 = 1;
 pub const VISIBLE: u8 = 2;
@@ -81,8 +80,9 @@ impl ShadowMap {
         mut min: f32,
         max: f32,
         rotate: &dyn Fn(f32, f32) -> (f32, f32),
+        sight_radius: f32,
     ) {
-        if distance >= SIGHT_RADIUS || min >= max {
+        if distance >= sight_radius || min >= max {
             return;
         }
 
@@ -93,7 +93,14 @@ impl ShadowMap {
             let y = center.1 + rotate(distance, i).1;
 
             if self.get(x as isize, y as isize) == BLOCK {
-                self.scan_arc(center, distance + 1.0, min, (i - 0.5) / distance, rotate);
+                self.scan_arc(
+                    center,
+                    distance + 1.0,
+                    min,
+                    (i - 0.5) / distance,
+                    rotate,
+                    sight_radius,
+                );
                 min = (i + 0.5) / distance;
             } else {
                 self.set(x as isize, y as isize, VISIBLE);
@@ -102,14 +109,14 @@ impl ShadowMap {
             i += 1.0;
         }
 
-        self.scan_arc(center, distance + 1.0, min, max, rotate);
+        self.scan_arc(center, distance + 1.0, min, max, rotate, sight_radius);
     }
 
-    pub fn full_scan(&mut self, center: (f32, f32)) {
-        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (x, y));
-        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (y, -x));
-        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-x, -y));
-        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-y, x));
+    pub fn full_scan(&mut self, center: (f32, f32), sight_radius: f32) {
+        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (x, y), sight_radius);
+        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (y, -x), sight_radius);
+        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-x, -y), sight_radius);
+        self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-y, x), sight_radius);
     }
 }
 
@@ -142,7 +149,7 @@ mod tests {
         }
 
         let center = (4.0, 5.0);
-        map.full_scan(center);
+        map.full_scan(center, 20.0);
 
         map.set(4, 5, PLAYER);
         map.show();
