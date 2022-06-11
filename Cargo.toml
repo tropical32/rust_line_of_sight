@@ -1,6 +1,6 @@
 [package]
 name = "line_of_sight"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 description = "A crate for finding the line of sight on a 2D grid."
 license = "MIT OR Apache-2.0"
