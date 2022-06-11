@@ -1,3 +1,5 @@
+mod tests;
+
 pub const EMPTY: u8 = 0;
 pub const BLOCK: u8 = 1;
 pub const VISIBLE: u8 = 2;
@@ -82,7 +84,7 @@ impl ShadowMap {
         rotate: &dyn Fn(f32, f32) -> (f32, f32),
         sight_radius: f32,
     ) {
-        if distance >= sight_radius || min >= max {
+        if distance > sight_radius || min >= max {
             return;
         }
 
@@ -117,67 +119,5 @@ impl ShadowMap {
         self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (y, -x), sight_radius);
         self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-x, -y), sight_radius);
         self.scan_arc(center, 0.0, -1.0, 1.0, &|x, y| (-y, x), sight_radius);
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::ShadowMap;
-    use crate::BLOCK;
-    use crate::PLAYER;
-
-    #[test]
-    fn test_raycast() {
-        let mut map = ShadowMap::new_with_empty_cells(16, 17);
-
-        let obstacles = vec![
-            (3, 3),
-            (4, 3),
-            (5, 3),
-            (8, 7),
-            (8, 5),
-            (6, 9),
-            (6, 10),
-            (6, 11),
-            (7, 11),
-            (7, 10),
-            (7, 9),
-        ];
-
-        for obstacle in obstacles {
-            map.set(obstacle.0, obstacle.1, BLOCK);
-        }
-
-        let center = (4.0, 5.0);
-        map.full_scan(center, 20.0);
-
-        map.set(4, 5, PLAYER);
-        map.show();
-
-        let expected_map = vec![
-            [2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2],
-            [2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            [2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            [2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0],
-            [2, 2, 2, 2, 3, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0],
-            [2, 2, 2, 2, 2, 2, 2, 2, 1, 0, 2, 2, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 0, 0, 0, 0, 2],
-            [2, 2, 2, 2, 2, 2, 1, 1, 0, 2, 2, 2, 2, 0, 0, 0],
-            [2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 2, 2, 2, 2, 0, 0],
-            [2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2],
-            [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        ];
-
-        for y in 0..expected_map.len() {
-            for x in 0..expected_map[y].len() {
-                assert_eq!(map.get(x as isize, y as isize), expected_map[y][x]);
-            }
-        }
     }
 }
