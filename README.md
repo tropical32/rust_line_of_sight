@@ -4,6 +4,10 @@ A crate for finding the line of sight on a 2D grid.
 
 ## Example
 
+    use line_of_sight::ShadowMap;
+    use line_of_sight::BLOCK;
+    use line_of_sight::PLAYER;
+
     // create a 16x17 line of sight map with empty cells by default
     let mut map = ShadowMap::new_with_empty_cells(16, 17);
 
