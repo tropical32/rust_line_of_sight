@@ -2,7 +2,7 @@
 name = "line_of_sight"
 version = "0.1.0"
 edition = "2021"
-description = "A package for finding the line of sight on a 2D grid."
+description = "A crate for finding the line of sight on a 2D grid."
 license = "MIT OR Apache-2.0"
 authors = ["Kamil Dydo <dydokamil@icloud.com>"]
 
