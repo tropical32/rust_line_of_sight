@@ -38,34 +38,50 @@ A crate for finding the line of sight on a 2D grid.
     
 ### Result
 [2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2]
+
 [2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
 [2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
 [2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0]
+
 [2, 2, 2, 2, 3, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0]
+
 [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0]
+
 [2, 2, 2, 2, 2, 2, 2, 2, 1, 0, 2, 2, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 0, 0, 0, 0, 2]
+
 [2, 2, 2, 2, 2, 2, 1, 1, 0, 2, 2, 2, 2, 0, 0, 0]
+
 [2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 2, 2, 2, 2, 0, 0]
+
 [2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2]
+
 [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2]
 
 #### Explanation
 * 0 -- unreachable cells
-* 1 - obstacles
-* 2 - reachable cells
-* 3 - center (optional; visual purpose only)
+* 1 -- obstacles
+* 2 -- reachable cells
+* 3 -- center (optional; visual purpose only)
 
 ### Graphical result
 ![Line of sight](img/line-of-sight2.png)
 
 #### Explanation
-* white cells - reachable cells
-* grey cells - unreachable cells
-* blue cells - obstacles
-* orange cell - center
+* white cells -- reachable cells
+* grey cells -- unreachable cells
+* blue cells -- obstacles
+* orange cell -- center
