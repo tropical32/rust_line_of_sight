@@ -78,7 +78,7 @@ A crate for finding the line of sight on a 2D grid.
 * 3 -- center (optional; visual purpose only)
 
 ### Graphical result
-![Line of sight](img/line-of-sight2.png)
+![Line of sight](https://github.com/dydokamil/rust_line_of_sight/blob/master/img/line-of-sight2.png?raw=true)
 
 #### Explanation
 * white cells -- reachable cells
